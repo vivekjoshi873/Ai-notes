@@ -4,6 +4,7 @@ import { Note } from '@/types';
 import { useState } from 'react';
 import { Trash2, X, Eye, Edit3, Sparkles } from 'lucide-react';
 import MarkdownPreview from './MarkdownPreview';
+import ConfirmModal from './ConfirmModal';
 
 interface NoteEditorProps {
   note: Note | null;
@@ -13,10 +14,6 @@ interface NoteEditorProps {
   onSummarize: () => void;
 }
 
-/**
- * NoteEditor component provides markdown editing with live preview
- * Supports split view and toggle between edit/preview modes
- */
 export default function NoteEditor({
   note,
   onUpdateNote,
@@ -25,6 +22,7 @@ export default function NoteEditor({
   onSummarize,
 }: NoteEditorProps) {
   const [viewMode, setViewMode] = useState<'edit' | 'preview' | 'split'>('split');
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
 
   if (!note) {
     return (
@@ -49,16 +47,18 @@ export default function NoteEditor({
   };
 
   const handleDelete = () => {
-    if (window.confirm('Are you sure you want to delete this note?')) {
+    setShowDeleteModal(true);
+  };
+
+  const confirmDelete = () => {
+    if (note) {
       onDeleteNote(note.id);
     }
   };
 
   return (
     <div className="flex flex-col h-full">
-      {/* Header */}
       <div className="flex-shrink-0 border-b border-gray-200 dark:border-gray-700 p-4 space-y-4">
-        {/* Title Input */}
         <input
           type="text"
           value={note.title}
@@ -66,8 +66,6 @@ export default function NoteEditor({
           placeholder="Note title..."
           className="w-full text-2xl font-bold bg-transparent border-none focus:outline-none text-gray-900 dark:text-white placeholder-gray-400"
         />
-
-        {/* Tags */}
         {note.tags.length > 0 && (
           <div className="flex flex-wrap gap-2">
             {note.tags.map((tag) => (
@@ -88,9 +86,7 @@ export default function NoteEditor({
           </div>
         )}
 
-        {/* Toolbar */}
         <div className="flex items-center justify-between">
-          {/* View Mode Buttons */}
           <div className="flex gap-1 bg-gray-100 dark:bg-gray-800 rounded-lg p-1">
             <button
               onClick={() => setViewMode('edit')}
@@ -124,7 +120,6 @@ export default function NoteEditor({
             </button>
           </div>
 
-          {/* Action Buttons */}
           <div className="flex gap-2">
             <button
               onClick={onSummarize}
@@ -143,8 +138,7 @@ export default function NoteEditor({
           </div>
         </div>
       </div>
-
-      {/* Editor/Preview Area */}
+                
       <div className="flex-1 overflow-hidden">
         {viewMode === 'edit' && (
           <textarea
@@ -175,6 +169,18 @@ export default function NoteEditor({
           </div>
         )}
       </div>
+
+      {/* Delete Confirmation Modal */}
+      <ConfirmModal
+        isOpen={showDeleteModal}
+        onClose={() => setShowDeleteModal(false)}
+        onConfirm={confirmDelete}
+        title="Delete Note?"
+        message="Are you sure you want to delete this note? This action cannot be undone and all content will be permanently removed."
+        confirmText="Delete"
+        cancelText="Cancel"
+        type="danger"
+      />
     </div>
   );
 }

@@ -12,10 +12,7 @@ interface TagFilterProps {
   activeNoteId: string | null;
 }
 
-/**
- * TagFilter component for filtering notes by tags
- * Supports multiple tag selection and displays tags as chips
- */
+
 export default function TagFilter({
   allTags,
   selectedTags,
@@ -82,7 +79,6 @@ export default function TagFilter({
         )}
       </div>
 
-      {/* Add Tag Section */}
       {activeNoteId && (
         <div className="pt-2 border-t border-gray-200 dark:border-gray-700">
           {showAddTag ? (

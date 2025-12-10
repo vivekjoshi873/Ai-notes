@@ -1,15 +1,7 @@
 import { AISummaryResponse } from '@/types';
 
-/**
- * Calls the AI API to generate a summary of the note content
- * Uses Next.js API route to keep the OpenAI API key secure
- * 
- * @param content - The note content to summarize
- * @returns Promise with the summary or error message
- */
 export async function summarizeNote(content: string): Promise<AISummaryResponse> {
   try {
-    // Check if content is empty
     if (!content.trim()) {
       return {
         summary: '',
@@ -17,7 +9,6 @@ export async function summarizeNote(content: string): Promise<AISummaryResponse>
       };
     }
 
-    // Call our Next.js API route (which keeps the API key server-side)
     const response = await fetch('/api/summarize', {
       method: 'POST',
       headers: {
@@ -49,12 +40,7 @@ export async function summarizeNote(content: string): Promise<AISummaryResponse>
   }
 }
 
-/**
- * Mock function for testing without an actual AI API
- * Remove this and use the actual summarizeNote function in production
- */
 export async function mockSummarizeNote(content: string): Promise<AISummaryResponse> {
-  // Simulate API delay
   await new Promise(resolve => setTimeout(resolve, 1500));
 
   if (!content.trim()) {
@@ -64,7 +50,6 @@ export async function mockSummarizeNote(content: string): Promise<AISummaryRespo
     };
   }
 
-  // Generate a simple mock summary
   const words = content.split(/\s+/).length;
   const lines = content.split('\n').length;
   

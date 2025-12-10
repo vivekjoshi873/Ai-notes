@@ -1,23 +1,20 @@
-import { useState, useMemo, useCallback } from 'react';
+import { useState, useMemo, useCallback, useEffect } from 'react';
 import { Note } from '@/types';
 import { useLocalStorage } from './useLocalStorage';
-
-/**
- * Custom hook for managing notes with CRUD operations, search, and filtering
- * Includes localStorage persistence and derived state for filtered notes
- */
-export function useNotes() {
-  // Persist notes in localStorage
-  const [notes, setNotes] = useLocalStorage<Note[]>('notes', []);
   
-  // UI state
-  const [activeNoteId, setActiveNoteId] = useState<string | null>(
-    notes.length > 0 ? notes[0].id : null
-  );
+export function useNotes() {
+  const [notes, setNotes] = useLocalStorage<Note[]>('notes', []);
+  const [activeNoteId, setActiveNoteId] = useState<string | null>(null);
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
 
-  // Get all unique tags from all notes
+  // Initialize activeNoteId after mount to prevent hydration mismatch
+  useEffect(() => {
+    if (!activeNoteId && notes.length > 0) {
+      setActiveNoteId(notes[0].id);
+    }
+  }, [notes, activeNoteId]);
+
   const allTags = useMemo(() => {
     const tagSet = new Set<string>();
     notes.forEach(note => {
@@ -26,15 +23,12 @@ export function useNotes() {
     return Array.from(tagSet).sort();
   }, [notes]);
 
-  // Filter notes based on search query and selected tags
   const filteredNotes = useMemo(() => {
     return notes.filter(note => {
-      // Search filter
       const matchesSearch = searchQuery === '' || 
         note.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
         note.content.toLowerCase().includes(searchQuery.toLowerCase());
 
-      // Tag filter
       const matchesTags = selectedTags.length === 0 ||
         selectedTags.every(tag => note.tags.includes(tag));
 
@@ -42,12 +36,10 @@ export function useNotes() {
     });
   }, [notes, searchQuery, selectedTags]);
 
-  // Get the currently active note
   const activeNote = useMemo(() => {
     return notes.find(note => note.id === activeNoteId) || null;
   }, [notes, activeNoteId]);
 
-  // Create a new note
   const createNote = useCallback(() => {
     const newNote: Note = {
       id: Date.now().toString(),
@@ -63,7 +55,6 @@ export function useNotes() {
     return newNote;
   }, [setNotes]);
 
-  // Update an existing note
   const updateNote = useCallback((id: string, updates: Partial<Note>) => {
     setNotes(prev => prev.map(note => 
       note.id === id
@@ -72,12 +63,10 @@ export function useNotes() {
     ));
   }, [setNotes]);
 
-  // Delete a note
   const deleteNote = useCallback((id: string) => {
     setNotes(prev => {
       const newNotes = prev.filter(note => note.id !== id);
       
-      // If we deleted the active note, select another one
       if (id === activeNoteId) {
         setActiveNoteId(newNotes.length > 0 ? newNotes[0].id : null);
       }
@@ -86,7 +75,6 @@ export function useNotes() {
     });
   }, [setNotes, activeNoteId]);
 
-  // Toggle tag selection for filtering
   const toggleTagFilter = useCallback((tag: string) => {
     setSelectedTags(prev => 
       prev.includes(tag)
@@ -95,12 +83,10 @@ export function useNotes() {
     );
   }, []);
 
-  // Clear all tag filters
   const clearTagFilters = useCallback(() => {
     setSelectedTags([]);
   }, []);
 
-  // Add tag to active note
   const addTagToNote = useCallback((noteId: string, tag: string) => {
     setNotes(prev => prev.map(note => 
       note.id === noteId && !note.tags.includes(tag)
@@ -109,7 +95,6 @@ export function useNotes() {
     ));
   }, [setNotes]);
 
-  // Remove tag from note
   const removeTagFromNote = useCallback((noteId: string, tag: string) => {
     setNotes(prev => prev.map(note => 
       note.id === noteId
@@ -119,7 +104,6 @@ export function useNotes() {
   }, [setNotes]);
 
   return {
-    // Data
     notes,
     filteredNotes,
     activeNote,
@@ -128,7 +112,6 @@ export function useNotes() {
     selectedTags,
     searchQuery,
 
-    // Actions
     createNote,
     updateNote,
     deleteNote,

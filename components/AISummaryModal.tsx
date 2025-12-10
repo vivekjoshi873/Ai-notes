@@ -11,10 +11,6 @@ interface AISummaryModalProps {
   isLoading: boolean;
 }
 
-/**
- * AISummaryModal displays AI-generated summaries of notes
- * Shows loading state, error messages, and the summary result
- */
 export default function AISummaryModal({
   isOpen,
   onClose,
@@ -23,8 +19,6 @@ export default function AISummaryModal({
   isLoading,
 }: AISummaryModalProps) {
   const modalRef = useRef<HTMLDivElement>(null);
-
-  // Close modal on escape key
   useEffect(() => {
     const handleEscape = (e: KeyboardEvent) => {
       if (e.key === 'Escape') onClose();
@@ -41,7 +35,6 @@ export default function AISummaryModal({
     };
   }, [isOpen, onClose]);
 
-  // Close modal on backdrop click
   const handleBackdropClick = (e: React.MouseEvent) => {
     if (modalRef.current && !modalRef.current.contains(e.target as Node)) {
       onClose();
@@ -59,7 +52,6 @@ export default function AISummaryModal({
         ref={modalRef}
         className="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl max-w-2xl w-full mx-4 max-h-[80vh] overflow-hidden animate-slide-in"
       >
-        {/* Header */}
         <div className="flex items-center justify-between p-6 border-b border-gray-200 dark:border-gray-700">
           <div className="flex items-center gap-3">
             <div className="p-2 bg-gradient-to-r from-purple-600 to-blue-600 rounded-lg">
@@ -78,7 +70,6 @@ export default function AISummaryModal({
           </button>
         </div>
 
-        {/* Content */}
         <div className="p-6 overflow-y-auto max-h-[calc(80vh-120px)] scrollbar-thin">
           {isLoading && (
             <div className="flex flex-col items-center justify-center py-12">
@@ -111,8 +102,7 @@ export default function AISummaryModal({
             </div>
           )}
         </div>
-
-        {/* Footer */}
+            
         <div className="flex justify-end gap-3 p-6 border-t border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900/50">
           <button
             onClick={onClose}

@@ -7,10 +7,6 @@ interface SearchBarProps {
   onSearchChange: (query: string) => void;
 }
 
-/**
- * SearchBar component for real-time note filtering
- * Searches both title and content of notes
- */
 export default function SearchBar({ searchQuery, onSearchChange }: SearchBarProps) {
   return (
     <div className="relative">

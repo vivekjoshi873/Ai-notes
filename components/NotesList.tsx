@@ -3,6 +3,7 @@
 import { Note } from '@/types';
 import { Clock, Tag } from 'lucide-react';
 import { formatDistanceToNow } from '@/utils/dateUtils';
+import { useState, useEffect } from 'react';
 
 interface NotesListProps {
   notes: Note[];
@@ -10,11 +11,12 @@ interface NotesListProps {
   onSelectNote: (noteId: string) => void;
 }
 
-/**
- * NotesList component displays a list of notes in the sidebar
- * Shows note title, preview, tags, and last updated time
- */
 export default function NotesList({ notes, activeNoteId, onSelectNote }: NotesListProps) {
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
   if (notes.length === 0) {
     return (
       <div className="flex flex-col items-center justify-center h-full p-8 text-center">
@@ -42,7 +44,6 @@ export default function NotesList({ notes, activeNoteId, onSelectNote }: NotesLi
                 : 'bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 hover:border-blue-300 dark:hover:border-blue-600 hover:shadow-sm'
             }`}
           >
-            {/* Title */}
             <h3
               className={`font-semibold mb-1 truncate ${
                 isActive
@@ -53,14 +54,12 @@ export default function NotesList({ notes, activeNoteId, onSelectNote }: NotesLi
               {note.title || 'Untitled'}
             </h3>
 
-            {/* Preview */}
             {preview && (
               <p className="text-sm text-gray-600 dark:text-gray-400 mb-2 line-clamp-2">
                 {preview}
               </p>
             )}
 
-            {/* Tags */}
             {note.tags.length > 0 && (
               <div className="flex items-center gap-1 mb-2 flex-wrap">
                 <Tag className="w-3 h-3 text-gray-400" />
@@ -77,11 +76,10 @@ export default function NotesList({ notes, activeNoteId, onSelectNote }: NotesLi
                 )}
               </div>
             )}
-
-            {/* Last Updated */}
+  
             <div className="flex items-center gap-1 text-xs text-gray-500 dark:text-gray-400">
               <Clock className="w-3 h-3" />
-              {formatDistanceToNow(note.updatedAt)}
+              {mounted ? formatDistanceToNow(note.updatedAt) : '...'}
             </div>
           </button>
         );

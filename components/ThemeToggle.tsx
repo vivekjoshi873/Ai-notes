@@ -1,44 +1,16 @@
 'use client';
 
 import { Moon, Sun } from 'lucide-react';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
+import { useThemeStore } from '@/store/themeStore';
 
-/**
- * ThemeToggle component for switching between light and dark modes
- * Persists preference in localStorage
- */
 export default function ThemeToggle() {
-  const [isDark, setIsDark] = useState(false);
-  const [mounted, setMounted] = useState(false);
+  const { isDark, toggleTheme, mounted, setMounted } = useThemeStore();
 
-  // Load theme preference on mount
   useEffect(() => {
     setMounted(true);
-    const savedTheme = localStorage.getItem('theme');
-    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    const shouldBeDark = savedTheme === 'dark' || (!savedTheme && prefersDark);
-    
-    setIsDark(shouldBeDark);
-    if (shouldBeDark) {
-      document.documentElement.classList.add('dark');
-    }
-  }, []);
-
-  // Toggle theme
-  const toggleTheme = () => {
-    const newIsDark = !isDark;
-    setIsDark(newIsDark);
-    
-    if (newIsDark) {
-      document.documentElement.classList.add('dark');
-      localStorage.setItem('theme', 'dark');
-    } else {
-      document.documentElement.classList.remove('dark');
-      localStorage.setItem('theme', 'light');
-    }
-  };
-
-  // Avoid hydration mismatch
+  }, [setMounted]);
+      
   if (!mounted) {
     return (
       <button

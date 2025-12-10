@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Plus, Menu, X } from 'lucide-react';
 import { useNotes } from '@/hooks/useNotes';
 import { summarizeNote } from '@/utils/aiService';
@@ -11,12 +11,13 @@ import TagFilter from '@/components/TagFilter';
 import AISummaryModal from '@/components/AISummaryModal';
 import ThemeToggle from '@/components/ThemeToggle';
 
-/**
- * Main application page - AI Notes App
- * Combines all components to create a full-featured notes application
- */
+
 export default function Home() {
-  // Notes state management
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
   const {
     filteredNotes,
     activeNote,
@@ -35,20 +36,17 @@ export default function Home() {
     removeTagFromNote,
   } = useNotes();
 
-  // UI state
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [aiSummary, setAiSummary] = useState('');
   const [aiError, setAiError] = useState<string | null>(null);
   const [isLoadingSummary, setIsLoadingSummary] = useState(false);
 
-  // Handle creating a new note
   const handleCreateNote = () => {
     const newNote = createNote();
-    setIsSidebarOpen(false); // Close sidebar on mobile after creating
+    setIsSidebarOpen(false);
   };
 
-  // Handle AI summarization
   const handleSummarize = async () => {
     if (!activeNote) return;
 
@@ -58,7 +56,6 @@ export default function Home() {
     setAiError(null);
 
     try {
-      // Call the real AI summarization function
       const result = await summarizeNote(activeNote.content);
       
       if (result.error) {
@@ -73,15 +70,21 @@ export default function Home() {
     }
   };
 
+  if (!mounted) {
+    return (
+      <div className="flex h-screen bg-gray-50 dark:bg-gray-900 items-center justify-center">
+        <div className="text-gray-400 dark:text-gray-600">Loading...</div>
+      </div>
+    );
+  }
+
   return (
     <div className="flex h-screen bg-gray-50 dark:bg-gray-900">
-      {/* Sidebar */}
       <aside
         className={`${
           isSidebarOpen ? 'translate-x-0' : '-translate-x-full'
         } fixed lg:static lg:translate-x-0 z-30 w-80 h-full bg-white dark:bg-gray-800 border-r border-gray-200 dark:border-gray-700 transition-transform duration-300 ease-in-out flex flex-col`}
       >
-        {/* Sidebar Header */}
         <div className="flex-shrink-0 p-4 border-b border-gray-200 dark:border-gray-700">
           <div className="flex items-center justify-between mb-4">
             <h1 className="text-2xl font-bold bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
@@ -99,11 +102,9 @@ export default function Home() {
             </div>
           </div>
 
-          {/* Search Bar */}
           <SearchBar searchQuery={searchQuery} onSearchChange={setSearchQuery} />
         </div>
 
-        {/* Tag Filter */}
         <div className="flex-shrink-0 p-4 border-b border-gray-200 dark:border-gray-700">
           <TagFilter
             allTags={allTags}
@@ -115,19 +116,17 @@ export default function Home() {
           />
         </div>
 
-        {/* Notes List */}
         <div className="flex-1 overflow-y-auto p-4 scrollbar-thin">
           <NotesList
             notes={filteredNotes}
             activeNoteId={activeNoteId}
             onSelectNote={(id) => {
               setActiveNoteId(id);
-              setIsSidebarOpen(false); // Close sidebar on mobile after selecting
+              setIsSidebarOpen(false);
             }}
           />
         </div>
 
-        {/* New Note Button */}
         <div className="flex-shrink-0 p-4 border-t border-gray-200 dark:border-gray-700">
           <button
             onClick={handleCreateNote}
@@ -139,9 +138,7 @@ export default function Home() {
         </div>
       </aside>
 
-      {/* Main Content */}
       <main className="flex-1 flex flex-col overflow-hidden">
-        {/* Mobile Header */}
         <div className="lg:hidden flex items-center justify-between p-4 border-b border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800">
           <button
             onClick={() => setIsSidebarOpen(true)}
@@ -156,7 +153,6 @@ export default function Home() {
           <ThemeToggle />
         </div>
 
-        {/* Note Editor */}
         <div className="flex-1 overflow-hidden bg-white dark:bg-gray-800">
           <NoteEditor
             note={activeNote}
@@ -168,7 +164,6 @@ export default function Home() {
         </div>
       </main>
 
-      {/* AI Summary Modal */}
       <AISummaryModal
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
@@ -177,7 +172,6 @@ export default function Home() {
         isLoading={isLoadingSummary}
       />
 
-      {/* Sidebar Overlay (Mobile) */}
       {isSidebarOpen && (
         <div
           className="lg:hidden fixed inset-0 bg-black/50 z-20"

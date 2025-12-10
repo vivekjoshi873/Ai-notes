@@ -7,10 +7,6 @@ interface MarkdownPreviewProps {
   content: string;
 }
 
-/**
- * MarkdownPreview component renders markdown content with GitHub Flavored Markdown support
- * Includes custom styling for all markdown elements
- */
 export default function MarkdownPreview({ content }: MarkdownPreviewProps) {
   if (!content.trim()) {
     return (
