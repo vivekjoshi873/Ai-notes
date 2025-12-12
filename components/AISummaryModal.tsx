@@ -1,7 +1,7 @@
-'use client';
+"use client";
 
-import { X, Sparkles, Loader2, AlertCircle } from 'lucide-react';
-import { useEffect, useRef } from 'react';
+import { X, Sparkles, Loader2, AlertCircle } from "lucide-react";
+import { useEffect, useRef } from "react";
 
 interface AISummaryModalProps {
   isOpen: boolean;
@@ -21,17 +21,17 @@ export default function AISummaryModal({
   const modalRef = useRef<HTMLDivElement>(null);
   useEffect(() => {
     const handleEscape = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') onClose();
+      if (e.key === "Escape") onClose();
     };
 
     if (isOpen) {
-      document.addEventListener('keydown', handleEscape);
-      document.body.style.overflow = 'hidden';
+      document.addEventListener("keydown", handleEscape);
+      document.body.style.overflow = "hidden";
     }
 
     return () => {
-      document.removeEventListener('keydown', handleEscape);
-      document.body.style.overflow = 'unset';
+      document.removeEventListener("keydown", handleEscape);
+      document.body.style.overflow = "unset";
     };
   }, [isOpen, onClose]);
 
@@ -87,7 +87,9 @@ export default function AISummaryModal({
                 <h3 className="font-semibold text-red-900 dark:text-red-200 mb-1">
                   Error
                 </h3>
-                <p className="text-red-700 dark:text-red-300 text-sm">{error}</p>
+                <p className="text-red-700 dark:text-red-300 text-sm">
+                  {error}
+                </p>
               </div>
             </div>
           )}
@@ -102,7 +104,7 @@ export default function AISummaryModal({
             </div>
           )}
         </div>
-            
+
         <div className="flex justify-end gap-3 p-6 border-t border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900/50">
           <button
             onClick={onClose}
@@ -115,4 +117,3 @@ export default function AISummaryModal({
     </div>
   );
 }
-

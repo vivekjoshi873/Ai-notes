@@ -1,7 +1,7 @@
-'use client';
+"use client";
 
-import { X, Plus } from 'lucide-react';
-import { useState } from 'react';
+import { X, Plus } from "lucide-react";
+import { useState } from "react";
 
 interface TagFilterProps {
   allTags: string[];
@@ -12,7 +12,6 @@ interface TagFilterProps {
   activeNoteId: string | null;
 }
 
-
 export default function TagFilter({
   allTags,
   selectedTags,
@@ -22,22 +21,22 @@ export default function TagFilter({
   activeNoteId,
 }: TagFilterProps) {
   const [showAddTag, setShowAddTag] = useState(false);
-  const [newTag, setNewTag] = useState('');
+  const [newTag, setNewTag] = useState("");
 
   const handleAddTag = () => {
     if (newTag.trim() && activeNoteId) {
       onAddTag(activeNoteId, newTag.trim());
-      setNewTag('');
+      setNewTag("");
       setShowAddTag(false);
     }
   };
 
   const handleKeyPress = (e: React.KeyboardEvent) => {
-    if (e.key === 'Enter') {
+    if (e.key === "Enter") {
       handleAddTag();
-    } else if (e.key === 'Escape') {
+    } else if (e.key === "Escape") {
       setShowAddTag(false);
-      setNewTag('');
+      setNewTag("");
     }
   };
 
@@ -69,8 +68,8 @@ export default function TagFilter({
               onClick={() => onToggleTag(tag)}
               className={`px-3 py-1.5 rounded-full text-xs font-semibold transition-all duration-300 transform hover:scale-110 hover:shadow-lg ${
                 selectedTags.includes(tag)
-                  ? 'bg-gradient-to-r from-purple-600 to-blue-600 text-white shadow-md hover:from-purple-700 hover:to-blue-700 hover:shadow-purple-500/50 dark:shadow-purple-500/30'
-                  : 'bg-gradient-to-r from-gray-100 to-gray-200 dark:from-gray-700 dark:to-gray-600 text-gray-700 dark:text-gray-200 hover:from-gray-200 hover:to-gray-300 dark:hover:from-gray-600 dark:hover:to-gray-500 shadow-sm'
+                  ? "bg-gradient-to-r from-purple-600 to-blue-600 text-white shadow-md hover:from-purple-700 hover:to-blue-700 hover:shadow-purple-500/50 dark:shadow-purple-500/30"
+                  : "bg-gradient-to-r from-gray-100 to-gray-200 dark:from-gray-700 dark:to-gray-600 text-gray-700 dark:text-gray-200 hover:from-gray-200 hover:to-gray-300 dark:hover:from-gray-600 dark:hover:to-gray-500 shadow-sm"
               }`}
             >
               {tag}
@@ -102,7 +101,7 @@ export default function TagFilter({
                 <button
                   onClick={() => {
                     setShowAddTag(false);
-                    setNewTag('');
+                    setNewTag("");
                   }}
                   className="flex-1 px-4 py-2 bg-gradient-to-r from-gray-200 to-gray-300 dark:from-gray-700 dark:to-gray-600 text-gray-700 dark:text-gray-200 rounded-lg hover:from-gray-300 hover:to-gray-400 dark:hover:from-gray-600 dark:hover:to-gray-500 text-sm font-semibold transition-all duration-300 transform hover:scale-105 hover:shadow-md"
                 >
@@ -124,4 +123,3 @@ export default function TagFilter({
     </div>
   );
 }
-

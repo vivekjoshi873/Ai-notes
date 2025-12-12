@@ -1,7 +1,7 @@
-'use client';
+"use client";
 
-import { AlertTriangle, X } from 'lucide-react';
-import { useEffect } from 'react';
+import { AlertTriangle, X } from "lucide-react";
+import { useEffect } from "react";
 
 interface ConfirmModalProps {
   isOpen: boolean;
@@ -11,7 +11,7 @@ interface ConfirmModalProps {
   message: string;
   confirmText?: string;
   cancelText?: string;
-  type?: 'danger' | 'warning' | 'info';
+  type?: "danger" | "warning" | "info";
 }
 
 export default function ConfirmModal({
@@ -20,31 +20,29 @@ export default function ConfirmModal({
   onConfirm,
   title,
   message,
-  confirmText = 'Confirm',
-  cancelText = 'Cancel',
-  type = 'danger',
+  confirmText = "Confirm",
+  cancelText = "Cancel",
+  type = "danger",
 }: ConfirmModalProps) {
-  // Handle escape key
   useEffect(() => {
     const handleEscape = (e: KeyboardEvent) => {
-      if (e.key === 'Escape' && isOpen) {
+      if (e.key === "Escape" && isOpen) {
         onClose();
       }
     };
 
-    document.addEventListener('keydown', handleEscape);
-    return () => document.removeEventListener('keydown', handleEscape);
+    document.addEventListener("keydown", handleEscape);
+    return () => document.removeEventListener("keydown", handleEscape);
   }, [isOpen, onClose]);
 
-  // Prevent body scroll when modal is open
   useEffect(() => {
     if (isOpen) {
-      document.body.style.overflow = 'hidden';
+      document.body.style.overflow = "hidden";
     } else {
-      document.body.style.overflow = 'unset';
+      document.body.style.overflow = "unset";
     }
     return () => {
-      document.body.style.overflow = 'unset';
+      document.body.style.overflow = "unset";
     };
   }, [isOpen]);
 
@@ -52,26 +50,26 @@ export default function ConfirmModal({
 
   const getTypeStyles = () => {
     switch (type) {
-      case 'danger':
+      case "danger":
         return {
-          icon: 'text-red-600 dark:text-red-400',
-          iconBg: 'bg-red-100 dark:bg-red-900/30',
+          icon: "text-red-600 dark:text-red-400",
+          iconBg: "bg-red-100 dark:bg-red-900/30",
           confirmButton:
-            'bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white shadow-lg hover:shadow-red-500/50 dark:shadow-red-500/30',
+            "bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white shadow-lg hover:shadow-red-500/50 dark:shadow-red-500/30",
         };
-      case 'warning':
+      case "warning":
         return {
-          icon: 'text-yellow-600 dark:text-yellow-400',
-          iconBg: 'bg-yellow-100 dark:bg-yellow-900/30',
+          icon: "text-yellow-600 dark:text-yellow-400",
+          iconBg: "bg-yellow-100 dark:bg-yellow-900/30",
           confirmButton:
-            'bg-gradient-to-r from-yellow-600 to-yellow-700 hover:from-yellow-700 hover:to-yellow-800 text-white shadow-lg hover:shadow-yellow-500/50 dark:shadow-yellow-500/30',
+            "bg-gradient-to-r from-yellow-600 to-yellow-700 hover:from-yellow-700 hover:to-yellow-800 text-white shadow-lg hover:shadow-yellow-500/50 dark:shadow-yellow-500/30",
         };
-      case 'info':
+      case "info":
         return {
-          icon: 'text-blue-600 dark:text-blue-400',
-          iconBg: 'bg-blue-100 dark:bg-blue-900/30',
+          icon: "text-blue-600 dark:text-blue-400",
+          iconBg: "bg-blue-100 dark:bg-blue-900/30",
           confirmButton:
-            'bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white shadow-lg hover:shadow-blue-500/50 dark:shadow-blue-500/30',
+            "bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white shadow-lg hover:shadow-blue-500/50 dark:shadow-blue-500/30",
         };
     }
   };
@@ -100,7 +98,9 @@ export default function ConfirmModal({
         {/* Content */}
         <div className="p-6">
           {/* Icon */}
-          <div className={`w-12 h-12 rounded-full ${styles.iconBg} flex items-center justify-center mb-4`}>
+          <div
+            className={`w-12 h-12 rounded-full ${styles.iconBg} flex items-center justify-center mb-4`}
+          >
             <AlertTriangle className={`w-6 h-6 ${styles.icon}`} />
           </div>
 
@@ -137,4 +137,3 @@ export default function ConfirmModal({
     </div>
   );
 }
-

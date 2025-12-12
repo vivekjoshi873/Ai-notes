@@ -1,4 +1,4 @@
-import Link from 'next/link';
+import Link from "next/link";
 import {
   ArrowRight,
   CheckCircle2,
@@ -8,41 +8,46 @@ import {
   Sparkles,
   Tag,
   Wand2,
-} from 'lucide-react';
+} from "lucide-react";
 
 export const metadata = {
-  title: 'AI Notes – Capture, Organize, Summarize',
-  description: 'A modern AI-powered notepad for fast note-taking and instant summaries.',
+  title: "AI Notes – Capture, Organize, Summarize",
+  description:
+    "A modern AI-powered notepad for fast note-taking and instant summaries.",
 };
 
 const features = [
   {
-    title: 'AI summaries in one tap',
-    description: 'Send any note to Groq-powered AI and get a concise, 2-4 sentence summary instantly.',
+    title: "AI summaries in one tap",
+    description:
+      "Send any note to Groq-powered AI and get a concise, 2-4 sentence summary instantly.",
     icon: Sparkles,
   },
   {
-    title: 'Organize with tags',
-    description: 'Tag, search, and filter notes without breaking your flow. Everything stays in sync.',
+    title: "Organize with tags",
+    description:
+      "Tag, search, and filter notes without breaking your flow. Everything stays in sync.",
     icon: Tag,
   },
   {
-    title: 'Focus-ready editor',
-    description: 'Distraction-free writing with markdown preview, autosave, and keyboard-friendly UI.',
+    title: "Focus-ready editor",
+    description:
+      "Distraction-free writing with markdown preview, autosave, and keyboard-friendly UI.",
     icon: NotebookPen,
   },
   {
-    title: 'Your data stays yours',
-    description: 'Keys live on the server. Notes are local to your browser unless you export them.',
+    title: "Your data stays yours",
+    description:
+      "Keys live on the server. Notes are local to your browser unless you export them.",
     icon: ShieldCheck,
   },
 ];
 
 const steps = [
-  'Create a note or paste existing text.',
-  'Add tags so you can filter later.',
-  'Click “Summarize with AI” to get the key points.',
-  'Keep writing—everything auto-saves.',
+  "Create a note or paste existing text.",
+  "Add tags so you can filter later.",
+  "Click “Summarize with AI” to get the key points.",
+  "Keep writing—everything auto-saves.",
 ];
 
 export default function LandingPage() {
@@ -55,8 +60,12 @@ export default function LandingPage() {
               <Wand2 className="h-5 w-5" />
             </div>
             <div>
-              <p className="text-sm uppercase tracking-wide text-slate-300">AI Notes</p>
-              <p className="text-sm text-slate-400">Capture. Organize. Summarize.</p>
+              <p className="text-sm uppercase tracking-wide text-slate-300">
+                AI Notes
+              </p>
+              <p className="text-sm text-slate-400">
+                Capture. Organize. Summarize.
+              </p>
             </div>
           </div>
           <nav className="hidden items-center gap-6 text-sm font-medium text-slate-200 md:flex">
@@ -92,8 +101,9 @@ export default function LandingPage() {
                 Your fastest way to get from messy notes to clear takeaways.
               </h1>
               <p className="text-lg text-slate-200/80 sm:text-xl">
-                Write freely, tag instantly, and let AI deliver crisp summaries whenever you need them.
-                No setup headaches—just add your Groq key on the server and start creating.
+                Write freely, tag instantly, and let AI deliver crisp summaries
+                whenever you need them. No setup headaches—just add your Groq
+                key on the server and start creating.
               </p>
               <div className="flex flex-wrap items-center gap-4">
                 <Link
@@ -127,8 +137,12 @@ export default function LandingPage() {
               <div className="relative rounded-3xl border border-white/10 bg-white/5 p-6 shadow-2xl shadow-purple-500/20 backdrop-blur">
                 <div className="mb-6 flex items-center justify-between">
                   <div>
-                    <p className="text-sm uppercase tracking-wide text-slate-300">AI Notepad</p>
-                    <p className="text-xl font-semibold text-white">Live preview</p>
+                    <p className="text-sm uppercase tracking-wide text-slate-300">
+                      AI Notepad
+                    </p>
+                    <p className="text-xl font-semibold text-white">
+                      Live preview
+                    </p>
                   </div>
                   <div className="rounded-full bg-emerald-500/20 px-3 py-1 text-xs font-semibold text-emerald-300">
                     Instant AI
@@ -144,15 +158,17 @@ export default function LandingPage() {
                       – Define success metrics
                       <br />
                       – Assign owners for QA, docs, launch comms
-                      <br />
-                      – Risk review: API limits, onboarding friction
+                      <br />– Risk review: API limits, onboarding friction
                     </p>
                   </div>
                   <div className="rounded-lg border border-white/5 bg-gradient-to-r from-purple-600/30 to-blue-600/30 p-4">
-                    <p className="text-sm font-semibold text-white">AI Summary</p>
+                    <p className="text-sm font-semibold text-white">
+                      AI Summary
+                    </p>
                     <p className="mt-2 text-sm text-slate-100">
-                      Clear launch checklist with metrics, owners for QA/docs comms, and risks to
-                      monitor around API limits and onboarding.
+                      Clear launch checklist with metrics, owners for QA/docs
+                      comms, and risks to monitor around API limits and
+                      onboarding.
                     </p>
                   </div>
                   <div className="flex flex-wrap items-center gap-3 text-xs text-slate-200">
@@ -175,14 +191,22 @@ export default function LandingPage() {
           </div>
         </section>
 
-        <section id="features" className="border-t border-white/5 bg-slate-950/40">
+        <section
+          id="features"
+          className="border-t border-white/5 bg-slate-950/40"
+        >
           <div className="mx-auto max-w-6xl px-6 py-16">
             <div className="flex flex-col gap-3">
-              <p className="text-sm font-semibold uppercase tracking-wide text-purple-200">Features</p>
-              <h2 className="text-3xl font-bold text-white sm:text-4xl">Built for writers who move fast</h2>
+              <p className="text-sm font-semibold uppercase tracking-wide text-purple-200">
+                Features
+              </p>
+              <h2 className="text-3xl font-bold text-white sm:text-4xl">
+                Built for writers who move fast
+              </h2>
               <p className="max-w-3xl text-lg text-slate-200/80">
-                Everything you need to capture ideas, keep them organized, and turn them into
-                action—backed by lightning-fast AI summaries powered by Groq.
+                Everything you need to capture ideas, keep them organized, and
+                turn them into action—backed by lightning-fast AI summaries
+                powered by Groq.
               </p>
             </div>
             <div className="mt-10 grid gap-6 md:grid-cols-2">
@@ -195,7 +219,9 @@ export default function LandingPage() {
                     <div className="rounded-xl bg-white/10 p-3 text-purple-200">
                       <Icon className="h-6 w-6" />
                     </div>
-                    <h3 className="text-xl font-semibold text-white">{title}</h3>
+                    <h3 className="text-xl font-semibold text-white">
+                      {title}
+                    </h3>
                   </div>
                   <p className="mt-3 text-slate-200/80">{description}</p>
                 </div>
@@ -204,7 +230,10 @@ export default function LandingPage() {
           </div>
         </section>
 
-        <section id="how-it-works" className="border-t border-white/5 bg-slate-900/50">
+        <section
+          id="how-it-works"
+          className="border-t border-white/5 bg-slate-900/50"
+        >
           <div className="mx-auto grid max-w-6xl items-center gap-10 px-6 py-16 md:grid-cols-2">
             <div className="space-y-4">
               <p className="text-sm font-semibold uppercase tracking-wide text-purple-200">
@@ -214,8 +243,9 @@ export default function LandingPage() {
                 From draft to AI summary in under a minute.
               </h2>
               <p className="text-lg text-slate-200/80">
-                Minimal setup: your Groq key lives on the server; everything else runs in the browser.
-                Summaries stay snappy and your notes stay private.
+                Minimal setup: your Groq key lives on the server; everything
+                else runs in the browser. Summaries stay snappy and your notes
+                stay private.
               </p>
             </div>
             <div className="space-y-4">
@@ -246,7 +276,8 @@ export default function LandingPage() {
                     Open the AI Notepad and start capturing ideas now.
                   </h3>
                   <p className="text-lg text-slate-100/80">
-                    Create notes, add tags, and generate summaries in seconds. Zero learning curve.
+                    Create notes, add tags, and generate summaries in seconds.
+                    Zero learning curve.
                   </p>
                 </div>
                 <div className="flex flex-col gap-3">

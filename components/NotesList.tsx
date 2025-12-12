@@ -1,9 +1,9 @@
-'use client';
+"use client";
 
-import { Note } from '@/types';
-import { Clock, Tag } from 'lucide-react';
-import { formatDistanceToNow } from '@/utils/dateUtils';
-import { useState, useEffect } from 'react';
+import { Note } from "@/types";
+import { Clock, Tag } from "lucide-react";
+import { formatDistanceToNow } from "@/utils/dateUtils";
+import { useState, useEffect } from "react";
 
 interface NotesListProps {
   notes: Note[];
@@ -11,7 +11,11 @@ interface NotesListProps {
   onSelectNote: (noteId: string) => void;
 }
 
-export default function NotesList({ notes, activeNoteId, onSelectNote }: NotesListProps) {
+export default function NotesList({
+  notes,
+  activeNoteId,
+  onSelectNote,
+}: NotesListProps) {
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -32,7 +36,10 @@ export default function NotesList({ notes, activeNoteId, onSelectNote }: NotesLi
     <div className="space-y-2">
       {notes.map((note) => {
         const isActive = note.id === activeNoteId;
-        const preview = note.content.substring(0, 100).replace(/[#*\-_]/g, '').trim();
+        const preview = note.content
+          .substring(0, 100)
+          .replace(/[#*\-_]/g, "")
+          .trim();
 
         return (
           <button
@@ -40,18 +47,18 @@ export default function NotesList({ notes, activeNoteId, onSelectNote }: NotesLi
             onClick={() => onSelectNote(note.id)}
             className={`w-full text-left p-4 rounded-lg transition-all animate-fade-in ${
               isActive
-                ? 'bg-blue-50 dark:bg-blue-900/30 border-2 border-blue-500 dark:border-blue-400 shadow-md'
-                : 'bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 hover:border-blue-300 dark:hover:border-blue-600 hover:shadow-sm'
+                ? "bg-blue-50 dark:bg-blue-900/30 border-2 border-blue-500 dark:border-blue-400 shadow-md"
+                : "bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 hover:border-blue-300 dark:hover:border-blue-600 hover:shadow-sm"
             }`}
           >
             <h3
               className={`font-semibold mb-1 truncate ${
                 isActive
-                  ? 'text-blue-900 dark:text-blue-100'
-                  : 'text-gray-900 dark:text-white'
+                  ? "text-blue-900 dark:text-blue-100"
+                  : "text-gray-900 dark:text-white"
               }`}
             >
-              {note.title || 'Untitled'}
+              {note.title || "Untitled"}
             </h3>
 
             {preview && (
@@ -72,14 +79,16 @@ export default function NotesList({ notes, activeNoteId, onSelectNote }: NotesLi
                   </span>
                 ))}
                 {note.tags.length > 3 && (
-                  <span className="text-xs text-gray-500">+{note.tags.length - 3}</span>
+                  <span className="text-xs text-gray-500">
+                    +{note.tags.length - 3}
+                  </span>
                 )}
               </div>
             )}
-  
+
             <div className="flex items-center gap-1 text-xs text-gray-500 dark:text-gray-400">
               <Clock className="w-3 h-3" />
-              {mounted ? formatDistanceToNow(note.updatedAt) : '...'}
+              {mounted ? formatDistanceToNow(note.updatedAt) : "..."}
             </div>
           </button>
         );
@@ -87,4 +96,3 @@ export default function NotesList({ notes, activeNoteId, onSelectNote }: NotesLi
     </div>
   );
 }
-

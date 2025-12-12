@@ -1,17 +1,16 @@
-'use client';
+"use client";
 
-import Link from 'next/link';
-import { useState, useEffect } from 'react';
-import { Plus, Menu, X } from 'lucide-react';
-import { useNotes } from '@/hooks/useNotes';
-import { summarizeNote } from '@/utils/aiService';
-import NotesList from '@/components/NotesList';
-import NoteEditor from '@/components/NoteEditor';
-import SearchBar from '@/components/SearchBar';
-import TagFilter from '@/components/TagFilter';
-import AISummaryModal from '@/components/AISummaryModal';
-import ThemeToggle from '@/components/ThemeToggle';
-
+import Link from "next/link";
+import { useState, useEffect } from "react";
+import { Plus, Menu, X } from "lucide-react";
+import { useNotes } from "@/hooks/useNotes";
+import { summarizeNote } from "@/utils/aiService";
+import NotesList from "@/components/NotesList";
+import NoteEditor from "@/components/NoteEditor";
+import SearchBar from "@/components/SearchBar";
+import TagFilter from "@/components/TagFilter";
+import AISummaryModal from "@/components/AISummaryModal";
+import ThemeToggle from "@/components/ThemeToggle";
 
 export default function Home() {
   const [mounted, setMounted] = useState(false);
@@ -39,7 +38,7 @@ export default function Home() {
 
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [aiSummary, setAiSummary] = useState('');
+  const [aiSummary, setAiSummary] = useState("");
   const [aiError, setAiError] = useState<string | null>(null);
   const [isLoadingSummary, setIsLoadingSummary] = useState(false);
 
@@ -53,19 +52,19 @@ export default function Home() {
 
     setIsModalOpen(true);
     setIsLoadingSummary(true);
-    setAiSummary('');
+    setAiSummary("");
     setAiError(null);
 
     try {
       const result = await summarizeNote(activeNote.content);
-      
+
       if (result.error) {
         setAiError(result.error);
       } else {
         setAiSummary(result.summary);
       }
     } catch (error) {
-      setAiError('An unexpected error occurred');
+      setAiError("An unexpected error occurred");
     } finally {
       setIsLoadingSummary(false);
     }
@@ -83,7 +82,7 @@ export default function Home() {
     <div className="flex h-screen bg-gray-50 dark:bg-gray-900">
       <aside
         className={`${
-          isSidebarOpen ? 'translate-x-0' : '-translate-x-full'
+          isSidebarOpen ? "translate-x-0" : "-translate-x-full"
         } fixed lg:static lg:translate-x-0 z-30 w-80 h-full bg-white dark:bg-gray-800 border-r border-gray-200 dark:border-gray-700 transition-transform duration-300 ease-in-out flex flex-col`}
       >
         <div className="flex-shrink-0 p-4 border-b border-gray-200 dark:border-gray-700">
@@ -106,7 +105,10 @@ export default function Home() {
             </div>
           </div>
 
-          <SearchBar searchQuery={searchQuery} onSearchChange={setSearchQuery} />
+          <SearchBar
+            searchQuery={searchQuery}
+            onSearchChange={setSearchQuery}
+          />
         </div>
 
         <div className="flex-shrink-0 p-4 border-b border-gray-200 dark:border-gray-700">
@@ -188,5 +190,3 @@ export default function Home() {
     </div>
   );
 }
-
-

@@ -1,8 +1,8 @@
-'use client';
+"use client";
 
-import { Moon, Sun } from 'lucide-react';
-import { useEffect } from 'react';
-import { useThemeStore } from '@/store/themeStore';
+import { Moon, Sun } from "lucide-react";
+import { useEffect } from "react";
+import { useThemeStore } from "@/store/themeStore";
 
 export default function ThemeToggle() {
   const { isDark, toggleTheme, mounted, setMounted } = useThemeStore();
@@ -10,7 +10,7 @@ export default function ThemeToggle() {
   useEffect(() => {
     setMounted(true);
   }, [setMounted]);
-      
+
   if (!mounted) {
     return (
       <button
@@ -36,4 +36,3 @@ export default function ThemeToggle() {
     </button>
   );
 }
-

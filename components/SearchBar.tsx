@@ -1,13 +1,16 @@
-'use client';
+"use client";
 
-import { Search, X } from 'lucide-react';
+import { Search, X } from "lucide-react";
 
 interface SearchBarProps {
   searchQuery: string;
   onSearchChange: (query: string) => void;
 }
 
-export default function SearchBar({ searchQuery, onSearchChange }: SearchBarProps) {
+export default function SearchBar({
+  searchQuery,
+  onSearchChange,
+}: SearchBarProps) {
   return (
     <div className="relative">
       <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400" />
@@ -20,7 +23,7 @@ export default function SearchBar({ searchQuery, onSearchChange }: SearchBarProp
       />
       {searchQuery && (
         <button
-          onClick={() => onSearchChange('')}
+          onClick={() => onSearchChange("")}
           className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition-colors"
           aria-label="Clear search"
         >
@@ -30,4 +33,3 @@ export default function SearchBar({ searchQuery, onSearchChange }: SearchBarProp
     </div>
   );
 }
-

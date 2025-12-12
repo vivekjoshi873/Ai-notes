@@ -1,10 +1,10 @@
-'use client';
+"use client";
 
-import { Note } from '@/types';
-import { useState } from 'react';
-import { Trash2, X, Eye, Edit3, Sparkles } from 'lucide-react';
-import MarkdownPreview from './MarkdownPreview';
-import ConfirmModal from './ConfirmModal';
+import { Note } from "@/types";
+import { useState } from "react";
+import { Trash2, X, Eye, Edit3, Sparkles } from "lucide-react";
+import MarkdownPreview from "./MarkdownPreview";
+import ConfirmModal from "./ConfirmModal";
 
 interface NoteEditorProps {
   note: Note | null;
@@ -21,7 +21,9 @@ export default function NoteEditor({
   onRemoveTag,
   onSummarize,
 }: NoteEditorProps) {
-  const [viewMode, setViewMode] = useState<'edit' | 'preview' | 'split'>('split');
+  const [viewMode, setViewMode] = useState<"edit" | "preview" | "split">(
+    "split"
+  );
   const [showDeleteModal, setShowDeleteModal] = useState(false);
 
   if (!note) {
@@ -89,31 +91,31 @@ export default function NoteEditor({
         <div className="flex items-center justify-between">
           <div className="flex gap-1 bg-gray-100 dark:bg-gray-800 rounded-lg p-1">
             <button
-              onClick={() => setViewMode('edit')}
+              onClick={() => setViewMode("edit")}
               className={`px-3 py-1.5 rounded-md text-sm font-medium transition-colors ${
-                viewMode === 'edit'
-                  ? 'bg-white dark:bg-gray-700 text-gray-900 dark:text-white shadow-sm'
-                  : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white'
+                viewMode === "edit"
+                  ? "bg-white dark:bg-gray-700 text-gray-900 dark:text-white shadow-sm"
+                  : "text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white"
               }`}
             >
               <Edit3 className="w-4 h-4" />
             </button>
             <button
-              onClick={() => setViewMode('split')}
+              onClick={() => setViewMode("split")}
               className={`px-3 py-1.5 rounded-md text-sm font-medium transition-colors ${
-                viewMode === 'split'
-                  ? 'bg-white dark:bg-gray-700 text-gray-900 dark:text-white shadow-sm'
-                  : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white'
+                viewMode === "split"
+                  ? "bg-white dark:bg-gray-700 text-gray-900 dark:text-white shadow-sm"
+                  : "text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white"
               }`}
             >
               Split
             </button>
             <button
-              onClick={() => setViewMode('preview')}
+              onClick={() => setViewMode("preview")}
               className={`px-3 py-1.5 rounded-md text-sm font-medium transition-colors ${
-                viewMode === 'preview'
-                  ? 'bg-white dark:bg-gray-700 text-gray-900 dark:text-white shadow-sm'
-                  : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white'
+                viewMode === "preview"
+                  ? "bg-white dark:bg-gray-700 text-gray-900 dark:text-white shadow-sm"
+                  : "text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white"
               }`}
             >
               <Eye className="w-4 h-4" />
@@ -138,9 +140,9 @@ export default function NoteEditor({
           </div>
         </div>
       </div>
-                
+
       <div className="flex-1 overflow-hidden">
-        {viewMode === 'edit' && (
+        {viewMode === "edit" && (
           <textarea
             value={note.content}
             onChange={handleContentChange}
@@ -149,13 +151,13 @@ export default function NoteEditor({
           />
         )}
 
-        {viewMode === 'preview' && (
+        {viewMode === "preview" && (
           <div className="h-full overflow-y-auto p-6 scrollbar-thin">
             <MarkdownPreview content={note.content} />
           </div>
         )}
 
-        {viewMode === 'split' && (
+        {viewMode === "split" && (
           <div className="grid grid-cols-2 h-full divide-x divide-gray-200 dark:divide-gray-700">
             <textarea
               value={note.content}
@@ -184,4 +186,3 @@ export default function NoteEditor({
     </div>
   );
 }
-

@@ -19,4 +19,3 @@ export interface AISummaryResponse {
   summary: string;
   error?: string;
 }
-
