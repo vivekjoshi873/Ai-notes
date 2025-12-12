@@ -205,7 +205,7 @@ export default function LandingPage() {
               </h2>
               <p className="max-w-3xl text-lg text-slate-200/80">
                 Everything you need to capture ideas, keep them organized, and
-                turn them into action—backed by lightning-fast AI summaries
+                turn them into action, backed by lightning-fast AI summaries
                 powered by Groq.
               </p>
             </div>
