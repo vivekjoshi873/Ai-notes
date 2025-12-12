@@ -102,7 +102,7 @@ export default function LandingPage() {
               </h1>
               <p className="text-lg text-slate-200/80 sm:text-xl">
                 Write freely, tag instantly, and let AI deliver crisp summaries
-                whenever you need them. No setup headaches—just add your Groq
+                whenever you need them.  headaches, just add your Groq
                 key on the server and start creating.
               </p>
               <div className="flex flex-wrap items-center gap-4">
